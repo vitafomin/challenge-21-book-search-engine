@@ -37,13 +37,13 @@ const resolvers = {
         },
         saveBook: async (parent, { userId, book }, context) => {
             if (context.user) {
-                return User.findOneAndUpdate({ _id: userId }, { $addToSet: { books: book }}, { new: true });
+                return User.findOneAndUpdate({ _id: userId }, { $addToSet: { savedBooks: book }}, { new: true });
             }
             throw new AuthenticationError("Please Login!");
         },
         removeBook: async (parent, { book }, context) => {
             if (context.user) {
-                return User.findOneAndUpdate( {_id: context.user._id }, { $pull: {books: book }}, { new: true });
+                return User.findOneAndUpdate( {_id: context.user._id }, { $pull: {savedBooks: book }}, { new: true });
             }
             throw new AuthenticationError("Please Login!")
         }
