@@ -22,12 +22,11 @@ type Book {
     image: String
     link: String
 }
-input Book {
-    _id: ID
+input BookInput {
     bookId: String!
     authors: String
-    description: String
-    title: String
+    description: String!
+    title: String!
     image: String
     link: String
 }
@@ -41,7 +40,7 @@ type Query {
 type Mutation {
     createUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    saveBook(book: Book): User
+    saveBook(book: BookInput!): User
     removeBook(bookId: String!): User
 }`;
 

@@ -33,8 +33,8 @@ app.get("/", (req, res) => {
 
 // Creating a new instance of an Apollo server////////added
 const startApolloServer = async () => {
-  await Server.start();
-  Server.applyMiddleware({ app });
+  await server.start();
+  server.applyMiddleware({ app });
 
   db.once("open", () => {
     app.listen(PORT, () => {

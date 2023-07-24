@@ -1,6 +1,6 @@
 const { User, Book } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
-const { User } = require("../models");
+// const { User } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
@@ -15,7 +15,7 @@ const resolvers = {
             throw new AuthenticationError("Please Login!");
         }
     },
-    mutation: {
+    Mutation: {
         login: async (parent, { email, password }) => {
             const user = await User.findOne ({ email });
       
@@ -35,9 +35,9 @@ const resolvers = {
             const user = await User.create(args);
             return user;
         },
-        saveBook: async (parent, { userId, book }, context) => {
+        saveBook: async (parent, { book }, context) => {
             if (context.user) {
-                return User.findOneAndUpdate({ _id: userId }, { $addToSet: { savedBooks: book }}, { new: true });
+                return User.findOneAndUpdate({ _id: context.user._id }, { $addToSet: { savedBooks: book }}, { new: true, runValidators: true });
             }
             throw new AuthenticationError("Please Login!");
         },
