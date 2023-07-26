@@ -3,7 +3,7 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client"
  
-import CREATE_USER from "@apollo/client";
+import { CREATE_USER } from "../utils/mutations";
 // import { createUser } from '../utils/API';
 import Auth from '../utils/auth';
 
@@ -42,7 +42,7 @@ const SignupForm = () => {
       // }
 
       // const { token, user } = await response.json();
-      console.log(user);
+      console.log(data);
       // Auth.login(token);
     } catch (err) {
       console.error(err);
