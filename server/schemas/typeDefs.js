@@ -16,7 +16,7 @@ type Auth {
 type Book {
     _id: ID
     bookId: String!
-    authors: String
+    authors: [String]
     description: String
     title: String
     image: String

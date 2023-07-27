@@ -37,14 +37,21 @@ const resolvers = {
             return { user, token };
         },
         saveBook: async (parent, { book }, context) => {
+            try{
             if (context.user) {
+                console.log("book in resolver " + JSON.stringify(book));
                 return User.findOneAndUpdate({ _id: context.user._id }, { $addToSet: { savedBooks: book }}, { new: true, runValidators: true });
             }
             throw new AuthenticationError("Please Login!");
+        }
+        catch (err) {
+            console.log(err)
+        }
         },
-        removeBook: async (parent, { book }, context) => {
+        removeBook: async (parent, { bookId }, context) => {
             if (context.user) {
-                return User.findOneAndUpdate( {_id: context.user._id }, { $pull: {savedBooks: book }}, { new: true });
+                console.log("book deleted " + bookId)
+                return User.findOneAndUpdate( {_id: context.user._id }, { $pull: {savedBooks: {bookId} }}, { new: true });
             }
             throw new AuthenticationError("Please Login!")
         }

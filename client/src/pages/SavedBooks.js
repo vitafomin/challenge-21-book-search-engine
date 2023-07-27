@@ -16,13 +16,13 @@ import { removeBookId } from '../utils/localStorage';
 
 
 const SavedBooks = ({ savedBooks, loggedIn = false }) => {
-  const {loading, data, queryError} = useQuery(QUERY_ME);
+  const {loading, data } = useQuery(QUERY_ME);
   const userData = data?.me || {}
 
   const [removeBook, { error }] = useMutation(REMOVE_BOOK, { 
     update(cache, { data: { removeBook } }) {
       try {
-        cache.writeQuery({ query: QUERY_ME, data: { me: removeBook }, });
+        cache.writeQuery({ query: QUERY_ME, data: { me: removeBook } });
       } 
       catch(err) {
         console.log(err);
@@ -72,6 +72,7 @@ const SavedBooks = ({ savedBooks, loggedIn = false }) => {
       const { data } = await removeBook({
         variables: { bookId: bookId }
       })
+      console.log("data " + data )
       // const response = await deleteBook(bookId, token);
 
 
